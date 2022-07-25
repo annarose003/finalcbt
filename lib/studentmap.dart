@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:cbt/mymap.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:location/location.dart' as loc;
@@ -14,10 +15,13 @@ class MymapAppStud extends StatefulWidget {
   _MymapAppStateStud createState() => _MymapAppStateStud();
 }
 
-class _MymapAppStateStud extends  State<MymapAppStud> { // extends MymapApp {
+class _MymapAppStateStud extends State<MymapAppStud> {
+  // extends MymapApp {
   final loc.Location location = loc.Location();
   StreamSubscription<loc.LocationData>? _locationSubscription;
- // String x = 'hello';
+  // String x = 'hello';
+  var currentUser = FirebaseAuth.instance.currentUser;
+  // String userid = currentUser.uid;
   @override
   void initState() {
     super.initState();
@@ -34,6 +38,11 @@ class _MymapAppStateStud extends  State<MymapAppStud> { // extends MymapApp {
       ),
       body: Column(
         children: [
+          TextButton(
+              onPressed: () {
+                _getLocation(); // this func can
+              },
+              child: Text('add my location')),
           Expanded(
               child: StreamBuilder(
             stream:
@@ -78,12 +87,19 @@ class _MymapAppStateStud extends  State<MymapAppStud> { // extends MymapApp {
 
   _getLocation() async {
     try {
-      final loc.LocationData _locationResult = await location.getLocation();
-      await FirebaseFirestore.instance.collection('location').doc(widget.text).set({
-        'latitude': _locationResult.latitude,
-        'longitude': _locationResult.longitude,
-        'name': widget.text, //
-      }, SetOptions(merge: true));
+      if (currentUser != null) {
+        String userid = currentUser!.uid;
+        final loc.LocationData _locationResult = await location.getLocation();
+        await FirebaseFirestore.instance
+            .collection('location')
+            .doc(userid)
+            .set({
+          //
+          'latitude': _locationResult.latitude,
+          'longitude': _locationResult.longitude,
+          'name': userid, //
+        }, SetOptions(merge: true));
+      }
     } catch (e) {
       print(e);
     }
@@ -97,7 +113,10 @@ class _MymapAppStateStud extends  State<MymapAppStud> { // extends MymapApp {
         _locationSubscription = null;
       });
     }).listen((loc.LocationData currentlocation) async {
-      await FirebaseFirestore.instance.collection('location').doc(widget.text).set({
+      await FirebaseFirestore.instance
+          .collection('location')
+          .doc(widget.text)
+          .set({
         'latitude': currentlocation.latitude,
         'longitude': currentlocation.longitude,
         'name': widget.text // check how to adddmultiple useers locations

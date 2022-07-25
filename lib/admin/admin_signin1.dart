@@ -5,6 +5,7 @@ import 'package:cbt/common/widgets/custom_textfield.dart';
 import 'package:cbt/constants/global_variables.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 enum Auth {
     signin,
@@ -98,9 +99,10 @@ class _AuthScreenState1 extends State<AuthScreen1> {
                                     MaterialPageRoute(builder: (context) =>MakeDashboardItems1(title: '',)));
                             }).onError((error, stackTrace) {
                                 print("error ${error.toString()}");
-                                   final snackBar = SnackBar(
- content:  Text("Error ${error.toString()}"),
-   );
+                                  Alert(context:context,
+  title:"Failed Login",
+  desc:"incorrect email or password")
+  .show();
                             });
                                 },//event move to admin home page
                                     )  

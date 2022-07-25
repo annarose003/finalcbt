@@ -10,6 +10,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'dart:async';
 
+import 'package:rflutter_alert/rflutter_alert.dart';
+
 //student
 enum Auth {
   signin,
@@ -180,9 +182,14 @@ class _AuthScreenState extends State<AuthScreen> {
                                 }
                               }).onError((error, stackTrace) {
                                 print("error ${error.toString()}");
-                                  final snackBar = SnackBar(
-                                content:  Text("Error ${error.toString()}"),
-                                  );
+                                  Alert(context:context,
+          title:"Failed Login",
+  desc:"email already exists or password not long enough")
+  .show();
+                               
+                               
+                                
+                                  
                               });
                               //   add details only if crreated
                               //Navigator.pop(context, "Student Registered");
@@ -253,9 +260,13 @@ class _AuthScreenState extends State<AuthScreen> {
                                             )));
                               }).onError((error, stackTrace) {
                                 print("error ${error.toString()}");
-                                   final snackBar = SnackBar(
- content:  Text("Error ${error.toString()}"),
-   );
+                                Alert(context:context,
+                                title:"Failed Login",
+                                desc:"incorrect email or password")
+                                .show();
+
+                              
+  
                               });
                             },
                           )

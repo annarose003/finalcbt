@@ -4,6 +4,7 @@ import 'package:cbt/constants/global_variables.dart';
 import 'package:cbt/driver/homedriver1.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 enum Auth {
   signin,
@@ -104,9 +105,11 @@ class _AuthScreenState2 extends State<AuthScreen2> {
                                           )));
                             }).onError((error, stackTrace) {
                               print("error ${error.toString()}");
-                                 final snackBar = SnackBar(
- content:  Text("Error ${error.toString()}"),
-   );
+                                Alert(context:context,
+  title:"Failed Login",
+  desc:"incorrect email or password")
+  .show();
+                              
                             });                  }, // add event on pushing button
                         )
                       ],

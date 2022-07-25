@@ -14,6 +14,7 @@ class _MyMapState extends State<MyMap> {
   final loc.Location location = loc.Location();
   late GoogleMapController _controller;
   bool _added = false;
+ // FirebaseFirestore db = FirebaseFirestore.instance;
   @override
   Widget build(BuildContext context) {
     return Scaffold(

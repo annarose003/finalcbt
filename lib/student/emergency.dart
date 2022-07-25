@@ -44,7 +44,7 @@
   size: Size(250, 250), // button width and height
   child: ClipOval(
     child: Material(
-      color: Colors.red, // button color
+      color: Color.fromARGB(244, 216, 222, 98), // button color
       child: InkWell(
         splashColor: Colors.green, // splash color
         onTap: () async{

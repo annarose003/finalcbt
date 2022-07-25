@@ -1,9 +1,11 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:cbt/mymap.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
 import 'package:location/location.dart' as loc;
 import 'package:permission_handler/permission_handler.dart';
 
@@ -17,7 +19,13 @@ class MymapAppdriver extends StatefulWidget {
 class _MymapAppStatedriver extends  State<MymapAppdriver> { // extends MymapApp {
   final loc.Location location = loc.Location();
   StreamSubscription<loc.LocationData>? _locationSubscription;
- // String x = 'hello';
+ // String x = 'hello'; registered
+
+
+
+
+
+
   @override
   void initState() {
     super.initState();
@@ -46,6 +54,7 @@ class _MymapAppStatedriver extends  State<MymapAppdriver> { // extends MymapApp 
               child: Text('enable live location')),
           TextButton(
               onPressed: () {
+               // sendNotification([tokenId], "Bus has departed", "Alert");
                 _stopListening();
               },
               child: Text('stop live location')),

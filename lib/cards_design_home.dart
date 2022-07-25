@@ -1,5 +1,5 @@
-import 'package:cbt/admin/admin_signin1.dart';
-import 'package:cbt/driver/buslogin2.dart';
+
+import 'package:cbt/pwd.dart';
 import 'package:cbt/student/auth/screens/auth_screen_2.dart';
 import 'package:cbt/student/complaints/screens/complaint.dart';
 import 'package:flutter/material.dart';
@@ -80,7 +80,7 @@ void configOneSignel()
                   context,
                   MaterialPageRoute(
                       // ignore: prefer_const_constructors
-                      builder: (context) => AuthScreen2())); //driver
+                      builder: (context) => password(title: ""))); //driver
               //1.item
 
             }
@@ -92,7 +92,7 @@ void configOneSignel()
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => AuthScreen1())); //admin
+                      builder: (context) => password(title: ""))); //admin
               //3.item
             }
           },
